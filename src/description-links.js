@@ -1,5 +1,6 @@
 import './site-animations.js';
 import './description-links.css';
+import './detail-prices.css';
 
 const pattern = /\b(?:https?:\/\/|www\.)[^\s<>"']+/gi;
 function trimEnding(value) {
@@ -55,3 +56,25 @@ const root = document.getElementById('root');
 if (root) observer.observe(root, { childList: true, subtree: true, characterData: true });
 document.querySelectorAll('.product-dialog .detail-description').forEach(element => observer.observe(element, { childList: true, subtree: true, characterData: true }));
 schedule();
+
+root?.addEventListener('click', event => {
+  const more = event.target.closest('.product-more');
+  if (!more) return;
+  const source = more.closest('.card')?.querySelector('.price');
+  const target = document.querySelector('.product-dialog[open] .detail-price');
+  if (!source || !target) return;
+  const copy = source.cloneNode(true);
+  const previous = copy.querySelector('del')?.textContent.trim() || '';
+  copy.querySelectorAll('del').forEach(element => element.remove());
+  const current = copy.textContent.trim();
+  const line = document.createElement('span'); line.className = 'detail-current-line';
+  const label = document.createElement('span'); label.className = 'detail-price-label'; label.textContent = 'Prix actuel';
+  const amount = document.createElement('strong'); amount.className = 'detail-current-amount'; amount.textContent = current;
+  line.append(label, amount); target.replaceChildren(line);
+  if (previous) {
+    const oldLine = document.createElement('span'); oldLine.className = 'detail-previous-line';
+    const oldLabel = document.createElement('span'); oldLabel.textContent = 'Ancien prix : ';
+    const oldAmount = document.createElement('del'); oldAmount.textContent = previous;
+    oldLine.append(oldLabel, oldAmount); target.append(oldLine);
+  }
+});
