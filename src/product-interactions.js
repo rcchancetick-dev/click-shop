@@ -91,24 +91,21 @@ root.addEventListener('keydown', e => {
   if (target && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); target.click(); }
 });
 let queued = false;
-const observed = new WeakSet();
 const resize = new ResizeObserver(() => schedule());
 function enhance() {
   queued = false;
   root.querySelectorAll('.card').forEach(card => {
-    const description = card.querySelector('.desc');
-    if (!description) return;
-    if (!observed.has(description)) { observed.add(description); resize.observe(description); }
     let button = card.querySelector('.product-more');
-    const truncated = description.scrollHeight > description.clientHeight + 1;
-    if (truncated && !button) {
+    const title = card.querySelector('h3');
+    if (!button && title) {
       button = document.createElement('button');
-      button.type = 'button'; button.className = 'product-more'; button.textContent = 'Voir plus';
+      button.type = 'button';
+      button.className = 'product-more';
+      button.textContent = 'Voir plus';
       button.setAttribute('aria-haspopup', 'dialog');
-      button.setAttribute('aria-label', 'Voir les détails de ' + (card.querySelector('h3')?.textContent || 'ce produit'));
-      description.after(button);
+      button.setAttribute('aria-label', 'Voir les détails de ' + (title.textContent || 'ce produit'));
+      title.after(button);
     }
-    if (button && button.hidden === truncated) button.hidden = !truncated;
   });
   root.querySelectorAll('.card .pic, .cartrow > img, .adminproduct > img').forEach(target => {
     if (target.hasAttribute('data-product-zoom') || (!target.matches('img') && !target.querySelector('img'))) return;
