@@ -56,7 +56,8 @@ export default async function handler(req, res) {
       const country = String(req.query.country || '').toUpperCase();
       if (!/^[A-Z]{2}$/.test(country)) return res.status(400).json({ error: 'Pays requis.' });
       const { data, error } = await supabase.from('products').select('*').eq('published', true).order('created_at', { ascending: false });
-      if (error) return res.status(500).json({ error: error.message });
+      if (error) return res.status(500).json({ error: 'Impossible de charger les produits pour le moment.' });
+      res.setHeader('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=300');
       return res.status(200).json({ products: data.map(p => priceFor(p, country)) });
     }
     await requireAdmin(req);
