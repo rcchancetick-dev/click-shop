@@ -71,9 +71,9 @@ function openDetails(card, opener) {
   photo.hidden = !activeImage;
   if (activeImage) { image.src = activeImage.currentSrc || activeImage.src; image.alt = activeImage.alt; }
   details.querySelector('h2').textContent = card.querySelector('h3')?.textContent || 'Produit';
-  details.querySelector('.detail-meta').textContent = [card.querySelector('.meta small')?.textContent, card.querySelector('.chip')?.textContent].filter(Boolean).join(' · ');
+  details.querySelector('.detail-meta').textContent = [card.dataset.category, card.dataset.format].filter(Boolean).join(' · ');
   details.querySelector('.detail-price').textContent = card.querySelector('.price')?.textContent || '';
-  details.querySelector('.detail-description').textContent = card.querySelector('.desc')?.textContent || '';
+  details.querySelector('.detail-description').textContent = card.dataset.description || '';
   cartAction = card.querySelector('.add');
   const action = details.querySelector('.detail-cart');
   action.hidden = !cartAction;
