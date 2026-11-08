@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /cart
+
+Sitemap: https://click-shop-mg.vercel.app/sitemap.xml
