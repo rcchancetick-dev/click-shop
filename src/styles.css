@@ -62,3 +62,14 @@ footer{background:var(--navy);color:#c6cde0;padding:56px 6vw 32px}.footgrid{disp
 @media(max-width:1100px){.adminlayout{grid-template-columns:minmax(280px,.9fr) minmax(0,1.1fr);gap:18px}.adminlayout>.panel{padding:20px}}
 @media(max-width:900px){.adminlayout{grid-template-columns:1fr}.adminlayout>.form{position:static}.adminProductList{grid-template-columns:repeat(2,minmax(0,1fr))}.adminproduct{grid-template-columns:72px minmax(0,1fr);padding:13px;gap:12px}.adminproduct>img{width:72px;height:72px}}
 @media(max-width:560px){.adminlayout>.panel{padding:16px}.adminProductList{grid-template-columns:1fr}.adminproduct{grid-template-columns:72px minmax(0,1fr)}.adminProductActions{grid-column:1/-1;padding-top:2px}.adminhead{align-items:flex-start;gap:18px}.adminhead .secondary{margin-top:12px}}
+
+
+/* Cartes boutique : image et prix prioritaires, titres compacts */
+.cardbody>.price{order:0;margin:0 0 8px;font-size:20px;line-height:1.25}
+.cardbody>.productName{order:1;font-size:14px;line-height:1.4;font-weight:700;margin:0 0 2px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.8em}
+.cardbody>.productName.expanded{display:block;overflow:visible;min-height:0}
+.nameToggle{order:2;align-self:flex-start;border:0;background:none;padding:2px 0 8px;color:var(--orange-dark);font-size:12px;font-weight:700;cursor:pointer}
+.cardbody>.meta{order:3;margin:2px 0 8px}
+.cardbody>.desc{order:4}
+.cardbody>.add{order:5;margin-top:auto}
+@media(max-width:520px){.cardbody>.price{font-size:18px}.cardbody>.productName{font-size:13px}}
